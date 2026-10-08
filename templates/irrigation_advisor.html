@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+
+{% block title %}
+Irrigation Advisor
+{% endblock %}
+
+{% block content %}
+
+<div class="irrigation-page">
+
+    <div class="irrigation-header">
+
+        <div>
+
+            <p class="tagline">
+                SMART WATER MANAGEMENT
+            </p>
+
+            <h1>
+                💧 Irrigation Advisor
+            </h1>
+
+            <p>
+                Enter your farm conditions and get an
+                intelligent irrigation recommendation.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="btn secondary-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="irrigation-container">
+
+
+        <!-- INPUT CARD -->
+
+        <div class="irrigation-card">
+
+            <div class="irrigation-card-header">
+
+                <div class="irrigation-icon">
+                    💧
+                </div>
+
+                <div>
+
+                    <h2>
+                        Farm Conditions
+                    </h2>
+
+                    <p>
+                        Enter the current conditions
+                        of your field.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="irrigation-form"
+            >
+
+
+                <!-- CROP -->
+
+                <div class="input-group">
+
+                    <label>
+                        Crop Type
+                    </label>
+
+                    <select
+                        name="crop"
+                        required
+                    >
+
+                        <option value="">
+                            Select crop
+                        </option>
+
+                        <option value="rice">
+                            Rice
+                        </option>
+
+                        <option value="wheat">
+                            Wheat
+                        </option>
+
+                        <option value="maize">
+                            Maize
+                        </option>
+
+                        <option value="cotton">
+                            Cotton
+                        </option>
+
+                        <option value="sugarcane">
+                            Sugarcane
+                        </option>
+
+                        <option value="banana">
+                            Banana
+                        </option>
+
+                        <option value="chickpea">
+                            Chickpea
+                        </option>
+
+                        <option value="kidneybeans">
+                            Kidney Beans
+                        </option>
+
+                        <option value="lentil">
+                            Lentil
+                        </option>
+
+                        <option value="blackgram">
+                            Blackgram
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SOIL -->
+
+                <div class="input-group">
+
+                    <label>
+                        Soil Type
+                    </label>
+
+                    <select
+                        name="soil_type"
+                        required
+                    >
+
+                        <option value="">
+                            Select soil type
+                        </option>
+
+                        <option value="sandy">
+                            Sandy
+                        </option>
+
+                        <option value="loamy">
+                            Loamy
+                        </option>
+
+                        <option value="clay">
+                            Clay
+                        </option>
+
+                        <option value="silty">
+                            Silty
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="irrigation-grid">
+
+
+                    <!-- MOISTURE -->
+
+                    <div class="input-group">
+
+                        <label>
+                            Soil Moisture (%)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="soil_moisture"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            placeholder="Example: 30"
+                            required
+                        >
+
+                        <small>
+                            Current moisture level
+                        </small>
+
+                    </div>
+
+
+                    <!-- TEMPERATURE -->
+
+                    <div class="input-group">
+
+                        <label>
+                            Temperature (°C)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="temperature"
+                            step="0.1"
+                            placeholder="Example: 30"
+                            required
+                        >
+
+                        <small>
+                            Current temperature
+                        </small>
+
+                    </div>
+
+
+                    <!-- HUMIDITY -->
+
+                    <div class="input-group">
+
+                        <label>
+                            Humidity (%)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="humidity"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            placeholder="Example: 60"
+                            required
+                        >
+
+                        <small>
+                            Relative humidity
+                        </small>
+
+                    </div>
+
+
+                    <!-- RAINFALL -->
+
+                    <div class="input-group">
+
+                        <label>
+                            Recent Rainfall (mm)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="rainfall"
+                            min="0"
+                            step="0.1"
+                            placeholder="Example: 5"
+                            required
+                        >
+
+                        <small>
+                            Recent rainfall amount
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn primary-btn irrigation-submit"
+                >
+
+                    💧 Get Irrigation Recommendation
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="irrigation-result-card">
+
+            {% if recommendation %}
+
+                <div class="irrigation-result">
+
+                    <div class="result-icon">
+                        💧
+                    </div>
+
+                    <p class="result-label">
+                        SMART IRRIGATION RESULT
+                    </p>
+
+                    <h2>
+                        {{ recommendation }}
+                    </h2>
+
+                    <p>
+                        {{ details }}
+                    </p>
+
+                    <div class="irrigation-info">
+
+                        <strong>
+                            💡 Smart Farming Tip
+                        </strong>
+
+                        <span>
+                            Avoid unnecessary irrigation.
+                            Monitor soil moisture regularly
+                            to conserve water.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            {% elif error %}
+
+                <div class="irrigation-error">
+
+                    <div class="result-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Unable to Generate Result
+                    </h2>
+
+                    <p>
+                        {{ error }}
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="irrigation-empty">
+
+                    <div class="result-icon">
+                        💧
+                    </div>
+
+                    <h2>
+                        Irrigation Recommendation
+                    </h2>
+
+                    <p>
+                        Enter your field conditions and
+                        our smart irrigation engine will
+                        analyze them.
+                    </p>
+
+                    <div class="ai-info">
+
+                        <div>
+                            <strong>
+                                Soil Moisture
+                            </strong>
+
+                            <span>
+                                Required
+                            </span>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Weather Factors
+                            </strong>
+
+                            <span>
+                                3
+                            </span>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Water Saving
+                            </strong>
+
+                            <span>
+                                Enabled
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

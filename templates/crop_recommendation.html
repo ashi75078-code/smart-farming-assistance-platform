@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}
+Crop Recommendation
+{% endblock %}
+
+{% block content %}
+
+<div class="crop-page">
+
+    <div class="crop-header">
+
+        <div>
+            <p class="tagline">AI FARMING ASSISTANT</p>
+
+            <h1>🌱 Crop Recommendation</h1>
+
+            <p>
+                Enter your soil and environmental conditions
+                and our AI model will recommend a suitable crop.
+            </p>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="btn secondary-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="crop-container">
+
+        <!-- INPUT CARD -->
+
+        <div class="crop-card">
+
+            <div class="crop-card-header">
+
+                <div class="crop-big-icon">
+                    🌾
+                </div>
+
+                <div>
+                    <h2>Farm Conditions</h2>
+
+                    <p>
+                        Enter the current conditions of your farm.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form method="POST"
+                  class="crop-form">
+
+
+                <!-- NPK -->
+
+                <h3>🧪 Soil Nutrients</h3>
+
+                <div class="crop-form-grid">
+
+                    <div class="input-group">
+
+                        <label>
+                            Nitrogen (N)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="nitrogen"
+                            step="any"
+                            placeholder="Example: 90"
+                            required
+                        >
+
+                        <small>
+                            Nitrogen content in soil
+                        </small>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Phosphorus (P)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="phosphorus"
+                            step="any"
+                            placeholder="Example: 42"
+                            required
+                        >
+
+                        <small>
+                            Phosphorus content in soil
+                        </small>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Potassium (K)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="potassium"
+                            step="any"
+                            placeholder="Example: 43"
+                            required
+                        >
+
+                        <small>
+                            Potassium content in soil
+                        </small>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Soil pH
+                        </label>
+
+                        <input
+                            type="number"
+                            name="ph"
+                            step="0.01"
+                            placeholder="Example: 6.5"
+                            required
+                        >
+
+                        <small>
+                            Soil acidity / alkalinity
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ENVIRONMENT -->
+
+                <h3>🌤️ Environmental Conditions</h3>
+
+                <div class="crop-form-grid">
+
+                    <div class="input-group">
+
+                        <label>
+                            Temperature (°C)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="temperature"
+                            step="any"
+                            placeholder="Example: 25"
+                            required
+                        >
+
+                        <small>
+                            Current temperature
+                        </small>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Humidity (%)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="humidity"
+                            step="any"
+                            placeholder="Example: 80"
+                            required
+                        >
+
+                        <small>
+                            Relative humidity
+                        </small>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Rainfall (mm)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="rainfall"
+                            step="any"
+                            placeholder="Example: 200"
+                            required
+                        >
+
+                        <small>
+                            Expected / recent rainfall
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn primary-btn crop-submit">
+
+                    🤖 Get AI Recommendation
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div class="crop-result-card">
+
+            {% if recommendation %}
+
+                <div class="result-success">
+
+                    <div class="result-icon">
+                        🌾
+                    </div>
+
+                    <p class="result-label">
+                        AI RECOMMENDATION
+                    </p>
+
+                    <h2>
+                        {{ recommendation|capitalize }}
+                    </h2>
+
+                    <p>
+                        Based on the soil and environmental
+                        conditions you entered, our AI model
+                        recommends this crop.
+                    </p>
+
+                    <div class="result-badge">
+                        ✓ Recommended Crop
+                    </div>
+
+                </div>
+
+            {% elif error %}
+
+                <div class="result-error">
+
+                    <div class="result-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Unable to Predict
+                    </h2>
+
+                    <p>
+                        {{ error }}
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="result-empty">
+
+                    <div class="result-icon">
+                        🤖
+                    </div>
+
+                    <h2>
+                        Your Recommendation
+                    </h2>
+
+                    <p>
+                        Fill in the farm conditions and click
+                        <strong>
+                            Get AI Recommendation
+                        </strong>
+                        to receive your crop recommendation.
+                    </p>
+
+                    <div class="ai-info">
+
+                        <div>
+                            <strong>AI Model</strong>
+                            <span>Random Forest</span>
+                        </div>
+
+                        <div>
+                            <strong>Model Accuracy</strong>
+                            <span>99.55%</span>
+                        </div>
+
+                        <div>
+                            <strong>Input Parameters</strong>
+                            <span>7 Parameters</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+
+{% block title %}
+Weather Advisory
+{% endblock %}
+
+{% block content %}
+
+<div class="weather-page">
+
+    <!-- HEADER -->
+    <div class="weather-header">
+
+        <div>
+            <span class="weather-icon">🌦️</span>
+
+            <h1>Weather Advisory</h1>
+
+            <p>
+                Get live weather information and
+                farming recommendations for your location.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="weather-dashboard-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH CARD -->
+    <div class="weather-search-card">
+
+        <h2>📍 Check Weather</h2>
+
+        <p>
+            Enter your city or farming location.
+        </p>
+
+        <form
+            method="POST"
+            class="weather-form"
+        >
+
+            <div class="weather-input-group">
+
+                <label for="city">
+                    City / Location
+                </label>
+
+                <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    placeholder="Example: Chandigarh"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="weather-check-btn"
+            >
+                Check Weather ☁️
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+    {% if error %}
+
+    <div class="weather-error">
+
+        ⚠️ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- WEATHER RESULT -->
+    {% if weather %}
+
+    <div class="weather-result">
+
+
+        <!-- LOCATION -->
+        <div class="weather-location">
+
+            <div>
+
+                <span class="location-icon">
+                    📍
+                </span>
+
+                <div>
+
+                    <h2>
+                        {{ weather.city }}
+                    </h2>
+
+                    <p>
+                        {{ weather.country }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEATHER CONDITION -->
+            <div class="weather-condition">
+
+                <span class="condition-icon">
+                    🌤️
+                </span>
+
+                <strong>
+                    {{ weather.condition }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- WEATHER INFORMATION CARDS -->
+        <div class="weather-cards">
+
+
+            <!-- TEMPERATURE -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    🌡️
+                </div>
+
+                <div>
+
+                    <span>
+                        Temperature
+                    </span>
+
+                    <strong>
+                        {{ weather.temperature }} °C
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- HUMIDITY -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    💧
+                </div>
+
+                <div>
+
+                    <span>
+                        Humidity
+                    </span>
+
+                    <strong>
+                        {{ weather.humidity }} %
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT PRECIPITATION -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    🌧️
+                </div>
+
+                <div>
+
+                    <span>
+                        Current Rain
+                    </span>
+
+                    <strong>
+                        {{ weather.precipitation }} mm
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- WIND SPEED -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    💨
+                </div>
+
+                <div>
+
+                    <span>
+                        Wind Speed
+                    </span>
+
+                    <strong>
+                        {{ weather.wind_speed }} km/h
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- RAIN PROBABILITY -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    ☔
+                </div>
+
+                <div>
+
+                    <span>
+                        Rain Probability
+                    </span>
+
+                    <strong>
+                        {{ weather.rain_probability }} %
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPECTED RAIN -->
+            <div class="weather-card">
+
+                <div class="weather-card-icon">
+                    🌦️
+                </div>
+
+                <div>
+
+                    <span>
+                        Expected Rain
+                    </span>
+
+                    <strong>
+                        {{ weather.rain_sum }} mm
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FARMING ADVISORY -->
+        <div class="farming-advisory">
+
+            <div class="advisory-icon">
+                🌾
+            </div>
+
+            <div>
+
+                <h2>
+                    Farming Advisory
+                </h2>
+
+                <p>
+                    {{ advisory }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPLANATION -->
+        <div class="weather-info">
+
+            <h3>
+                🌱 What does this mean for your farm?
+            </h3>
+
+            <ul>
+
+                <li>
+                    <strong>Temperature:</strong>
+                    Helps identify heat or cold stress
+                    conditions for crops.
+                </li>
+
+                <li>
+                    <strong>Humidity:</strong>
+                    High humidity may increase the risk
+                    of fungal diseases.
+                </li>
+
+                <li>
+                    <strong>Rain:</strong>
+                    Rainfall information helps avoid
+                    unnecessary irrigation.
+                </li>
+
+                <li>
+                    <strong>Wind:</strong>
+                    Strong winds can affect spraying
+                    and irrigation activities.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+    {% else %}
+
+        {% if not error %}
+
+        <div class="weather-empty">
+
+            <div class="empty-icon">
+                🌍
+            </div>
+
+            <h2>
+                Check Your Farm's Weather
+            </h2>
+
+            <p>
+                Enter your city above to get current
+                weather conditions and farming advice.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

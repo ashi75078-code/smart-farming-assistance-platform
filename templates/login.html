@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <div class="form-icon">
+            🌾
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p>
+            Login to your Smart Farming account.
+        </p>
+
+
+        <form method="POST">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="btn primary-btn"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <p class="form-bottom">
+
+            Don't have an account?
+
+            <a href="{{ url_for('register') }}">
+                Create Account
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

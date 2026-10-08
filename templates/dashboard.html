@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}
+Farmer Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <div>
+            <h1>Welcome, {{ name }} 👋</h1>
+
+            <p>
+                Your smart farming tools are ready to help you
+                make better farming decisions.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- FEATURE CARDS -->
+
+    <div class="feature-grid">
+
+
+        <!-- CROP RECOMMENDATION -->
+
+        <a
+            href="{{ url_for('crop_recommendation') }}"
+            class="feature-card"
+        >
+
+            <div class="feature-icon">
+                🌱
+            </div>
+
+            <h3>
+                Crop Recommendation
+            </h3>
+
+            <p>
+                Find suitable crops using soil nutrients
+                and environmental conditions.
+            </p>
+
+            <span>
+                Get Recommendation →
+            </span>
+
+        </a>
+
+
+        <!-- DISEASE DETECTION -->
+
+        <a
+            href="{{ url_for('disease_detection') }}"
+            class="feature-card"
+        >
+
+            <div class="feature-icon">
+                🦠
+            </div>
+
+            <h3>
+                Disease Detection
+            </h3>
+
+            <p>
+                Upload a crop leaf image and use AI
+                to identify possible plant diseases.
+            </p>
+
+            <span>
+                Detect Disease →
+            </span>
+
+        </a>
+
+
+        <!-- IRRIGATION ADVISOR -->
+
+        <a
+            href="{{ url_for('irrigation_advisor') }}"
+            class="feature-card"
+        >
+
+            <div class="feature-icon">
+                💧
+            </div>
+
+            <h3>
+                Irrigation Advisor
+            </h3>
+
+            <p>
+                Get intelligent irrigation recommendations
+                based on soil and environmental conditions.
+            </p>
+
+            <span>
+                Get Advice →
+            </span>
+
+        </a>
+
+
+        <!-- FARM ANALYTICS -->
+
+        <div class="feature-card disabled">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Farm Analytics
+            </h3>
+
+            <p>
+                Analyze your farming data, predictions
+                and historical information.
+            </p>
+
+            <span>
+                Coming Soon
+            </span>
+
+        </div>
+
+
+        <!-- WEATHER ADVISORY -->
+
+        <a
+            href="{{ url_for('weather_advisory') }}"
+            class="feature-card"
+        >
+
+            <div class="feature-icon">
+                🌦️
+            </div>
+
+            <h3>
+                Weather Advisory
+            </h3>
+
+            <p>
+                Get live weather information and
+                farming-related recommendations.
+            </p>
+
+            <span>
+                Check Weather →
+            </span>
+
+        </a>
+
+
+        <!-- FARM MANAGEMENT -->
+
+        <div class="feature-card disabled">
+
+            <div class="feature-icon">
+                🚜
+            </div>
+
+            <h3>
+                Farm Management
+            </h3>
+
+            <p>
+                Manage your farm information,
+                crops and farming activities.
+            </p>
+
+            <span>
+                Coming Soon
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
